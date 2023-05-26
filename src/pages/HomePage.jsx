@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ProductPrice from "../components/renderPrice";
 
 const url = "https://api.noroff.dev/api/v1/online-shop";
 
@@ -15,18 +16,6 @@ function Home() {
     getProducts();
   }, []);
 
-  const renderPrice = (post) => {
-    if (post.discountedPrice !== post.price) {
-      return (
-        <>
-          <span className="original-price">{post.price}</span>
-          <b className="discounted-price">{post.discountedPrice}</b>
-        </>
-      );
-    }
-    return <b className="price">{post.price}</b>;
-  };
-
   return (
     <section className="home-page">
       <div className="card-container">
@@ -39,7 +28,10 @@ function Home() {
             ></img>
             <h2>{post.title}</h2>
             <p>{post.description}</p>
-            {renderPrice(post)}
+            <ProductPrice
+              discountedPrice={post.discountedPrice}
+              price={post.price}
+            />
             <Link to={`/ProductPage/${post.id}`}>
               <button>View Product</button>
             </Link>

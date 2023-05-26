@@ -1,53 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import ProductPrice from "../components/renderPrice";
 
 const url = "https://api.noroff.dev/api/v1/online-shop";
 
-function Home() {
-  const [posts, setPosts] = useState([]);
+function Product() {
+  const { productId } = useParams();
+  const newURL = url + "/" + productId;
+  const [post, setPosts] = useState([]);
 
   useEffect(() => {
     async function getProducts() {
-      const response = await fetch(url);
+      const response = await fetch(newURL);
       const json = await response.json();
       setPosts(json);
     }
     getProducts();
   }, []);
 
-  const renderPrice = (post) => {
-    if (post.discountedPrice !== post.price) {
-      return (
-        <>
-          <span className="original-price">{post.price}</span>
-          <b className="discounted-price">{post.discountedPrice}</b>
-        </>
-      );
-    }
-    return <b className="price">{post.price}</b>;
-  };
-
   return (
-    <section className="home-page">
-      <div className="card-container">
-        {posts.map((post) => (
-          <div className="product-card" key={post.id}>
-            <img
-              className="product-image"
-              src={post.imageUrl}
-              alt={post.title}
-            ></img>
-            <h2>{post.title}</h2>
-            <p>{post.description}</p>
-            {renderPrice(post)}
-            <Link to={`/ProductPage/${post.id}`}>
-              <button>View Product</button>
-            </Link>
-          </div>
-        ))}
+    <section>
+      <div className="" key={post.id}>
+        <h1>{post.title}</h1>
+        <p>Rating: {post.rating}</p>
+        <img
+          className="product-image"
+          src={post.imageUrl}
+          alt={post.title}
+        ></img>
+        <p>{post.description}</p>
+        <ProductPrice
+          discountedPrice={post.discountedPrice}
+          price={post.price}
+        />
       </div>
     </section>
   );
 }
 
-export default Home;
+export default Product;
