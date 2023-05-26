@@ -28,23 +28,25 @@ function Home() {
   };
 
   return (
-    <div className="card-container">
-      {posts.map((post) => (
-        <div className="product-card" key={post.id}>
-          <img
-            className="product-image"
-            src={post.imageUrl}
-            alt={post.title}
-          ></img>
-          <h2>{post.title}</h2>
-          <p>{post.description}</p>
-          {renderPrice(post)}
-          <Link to={`/ProductPage/${post.id}`}>
-            <button>View Product</button>
-          </Link>
-        </div>
-      ))}
-    </div>
+    <section className="home-page">
+      <div className="card-container">
+        {posts.map((post) => (
+          <div className="product-card" key={post.id}>
+            <img
+              className="product-image"
+              src={post.imageUrl}
+              alt={post.title}
+            ></img>
+            <h2>{post.title}</h2>
+            <p>{post.description}</p>
+            {renderPrice(post)}
+            <Link to={`/ProductPage/${post.id}`}>
+              <button>View Product</button>
+            </Link>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
