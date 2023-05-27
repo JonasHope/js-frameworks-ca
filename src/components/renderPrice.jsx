@@ -4,8 +4,10 @@ function ProductPrice({ discountedPrice, price }) {
   if (discountedPrice !== price) {
     return (
       <>
-        <span className="original-price">{price}</span>
-        <b className="discounted-price">{discountedPrice}</b>
+        <div>
+          <span className="original-price">${price}</span>
+          <b className="discounted-price">${discountedPrice}</b>
+        </div>
       </>
     );
   }

@@ -7,7 +7,7 @@ nav ul {
   display: flex;
 }
 
-nav a {
+a {
   text-decoration: none;
   color: black;
 }
@@ -23,16 +23,12 @@ body {
   background-color: rgb(228, 255, 255);
 }
 
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 .product-card {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  justify-content: space-between;
+  width: 300px;
+  height: 500px;
   border-radius: 3px;
   margin: 10px;
   padding: 10px;
