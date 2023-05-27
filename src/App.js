@@ -13,7 +13,7 @@ function App() {
       <Header />
       <Routes>
         <Route index element={<Home />} />
-        <Route path="cartPage" element={<Cart />} />
+        <Route path="CartPage" element={<Cart />} />
         <Route path="ProductPage/:productId" element={<Product />} />
       </Routes>
     </BrowserRouter>

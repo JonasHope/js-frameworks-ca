@@ -1,38 +1,62 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ProductPrice from "../components/renderPrice";
+import RenderPrice from "../components/RenderPrice";
 
 const url = "https://api.noroff.dev/api/v1/online-shop";
 
 function Product() {
   const { productId } = useParams();
-  const newURL = url + "/" + productId;
-  const [post, setPosts] = useState([]);
+  const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    async function getProducts() {
-      const response = await fetch(newURL);
-      const json = await response.json();
-      setPosts(json);
+    async function getProduct() {
+      const response = await fetch(url + "/" + productId);
+      const data = await response.json();
+      setProduct(data);
     }
-    getProducts();
-  }, []);
+    getProduct();
+  }, [productId]);
+
+  const addToCart = () => {
+    if (!localStorage.getItem("cart")) {
+      localStorage.setItem("cart", JSON.stringify([]));
+    }
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    const isProductInCart = cart.find((item) => item.id === product.id);
+
+    if (isProductInCart) {
+      alert("Product is already added to the cart.");
+    } else {
+      const productWithQuantity = { ...product, quantity: 1 };
+      cart.push(productWithQuantity);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Product added to the cart");
+    }
+  };
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <section>
-      <div className="" key={post.id}>
-        <h1>{post.title}</h1>
-        <p>Rating: {post.rating}</p>
+      <div className="product" key={product.id}>
+        <h1>{product.title}</h1>
         <img
           className="product-image"
-          src={post.imageUrl}
-          alt={post.title}
+          src={product.imageUrl}
+          alt={product.title}
         ></img>
-        <p>{post.description}</p>
-        <ProductPrice
-          discountedPrice={post.discountedPrice}
-          price={post.price}
+        <p>
+          Rating: <b>{product.rating}</b>
+        </p>
+        <hr />
+        <p>{product.description}</p>
+        <RenderPrice
+          discountedPrice={product.discountedPrice}
+          price={product.price}
         />
+        <button onClick={addToCart}>Add to cart</button>
       </div>
     </section>
   );

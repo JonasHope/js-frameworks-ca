@@ -47,4 +47,17 @@ body {
 
 .original-price {
   text-decoration: line-through;
+  padding: 10px;
+}
+
+/** ------------- **/
+
+.product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+hr {
+  width: 50%;
 }
