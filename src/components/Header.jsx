@@ -3,9 +3,7 @@ import CartIcon from "./CartIcon";
 import { Link } from "react-router-dom";
 import "../App.css";
 
-function Header() {
-  const itemCount = 5;
-
+function Header({ cartCount }) {
   return (
     <header>
       <nav>
@@ -15,7 +13,7 @@ function Header() {
           </li>
           <li>
             <Link to="/cartPage">
-              <CartIcon itemCount={itemCount} />
+              <CartIcon itemCount={cartCount} />
             </Link>
           </li>
         </ul>

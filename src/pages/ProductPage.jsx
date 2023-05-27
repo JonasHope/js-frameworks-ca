@@ -4,17 +4,17 @@ import RenderPrice from "../components/RenderPrice";
 
 const url = "https://api.noroff.dev/api/v1/online-shop";
 
-function Product() {
+const Product = ({ setCartCount }) => {
   const { productId } = useParams();
-  const [product, setProduct] = useState(null);
+  const [post, setPosts] = useState([]);
 
   useEffect(() => {
-    async function getProduct() {
+    async function getProducts() {
       const response = await fetch(url + "/" + productId);
-      const data = await response.json();
-      setProduct(data);
+      const json = await response.json();
+      setPosts(json);
     }
-    getProduct();
+    getProducts();
   }, [productId]);
 
   const addToCart = () => {
@@ -22,44 +22,40 @@ function Product() {
       localStorage.setItem("cart", JSON.stringify([]));
     }
     const cart = JSON.parse(localStorage.getItem("cart"));
-    const isProductInCart = cart.find((item) => item.id === product.id);
+    const isProductInCart = cart.find((item) => item.id === post.id);
 
     if (isProductInCart) {
       alert("Product is already added to the cart.");
     } else {
-      const productWithQuantity = { ...product, quantity: 1 };
-      cart.push(productWithQuantity);
+      cart.push(post);
       localStorage.setItem("cart", JSON.stringify(cart));
       alert("Product added to the cart");
+      setCartCount(cart.length);
     }
   };
 
-  if (!product) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <section>
-      <div className="product" key={product.id}>
-        <h1>{product.title}</h1>
+      <div className="product" key={post.id}>
+        <h1>{post.title}</h1>
         <img
           className="product-image"
-          src={product.imageUrl}
-          alt={product.title}
+          src={post.imageUrl}
+          alt={post.title}
         ></img>
         <p>
-          Rating: <b>{product.rating}</b>
+          Rating: <b>{post.rating}</b>
         </p>
-        <hr />
-        <p>{product.description}</p>
+        <hr></hr>
+        <p>{post.description}</p>
         <RenderPrice
-          discountedPrice={product.discountedPrice}
-          price={product.price}
+          discountedPrice={post.discountedPrice}
+          price={post.price}
         />
         <button onClick={addToCart}>Add to cart</button>
       </div>
     </section>
   );
-}
+};
 
 export default Product;

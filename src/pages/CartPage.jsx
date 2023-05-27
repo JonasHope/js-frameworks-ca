@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import RenderPrice from "../components/RenderPrice";
 
-const Cart = () => {
+const Cart = ({ setCartCount }) => {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
@@ -18,6 +18,7 @@ const Cart = () => {
     const updatedCart = cart.filter((item) => item.id !== productId);
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+    setCartCount(updatedCart.length);
   };
 
   const getTotalPrice = () => {
