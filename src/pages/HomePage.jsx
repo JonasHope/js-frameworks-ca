@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ProductPrice from "../components/RenderPrice";
+import ProductPrice from "../components/Price";
 import styled from "styled-components";
 
 const url = "https://api.noroff.dev/api/v1/online-shop";

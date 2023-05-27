@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ProductPrice from "../components/RenderPrice";
+import ProductPrice from "../components/Price";
 
 const Cart = ({ setCartCount }) => {
   const [cart, setCart] = useState([]);
