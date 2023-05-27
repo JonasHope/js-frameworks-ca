@@ -6,15 +6,15 @@ const url = "https://api.noroff.dev/api/v1/online-shop";
 
 const Product = ({ setCartCount }) => {
   const { productId } = useParams();
-  const [post, setPosts] = useState([]);
+  const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    async function getProducts() {
+    async function getProduct() {
       const response = await fetch(url + "/" + productId);
-      const json = await response.json();
-      setPosts(json);
+      const data = await response.json();
+      setProduct(data);
     }
-    getProducts();
+    getProduct();
   }, [productId]);
 
   const addToCart = () => {
@@ -22,35 +22,40 @@ const Product = ({ setCartCount }) => {
       localStorage.setItem("cart", JSON.stringify([]));
     }
     const cart = JSON.parse(localStorage.getItem("cart"));
-    const isProductInCart = cart.find((item) => item.id === post.id);
+    const isProductInCart = cart.find((item) => item.id === product.id);
 
     if (isProductInCart) {
       alert("Product is already added to the cart.");
     } else {
-      cart.push(post);
+      const productWithQuantity = { ...product, quantity: 1 };
+      cart.push(productWithQuantity);
       localStorage.setItem("cart", JSON.stringify(cart));
       alert("Product added to the cart");
       setCartCount(cart.length);
     }
   };
 
+  if (product === null) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <section>
-      <div className="product" key={post.id}>
-        <h1>{post.title}</h1>
+      <div className="product" key={product.id}>
+        <h1>{product.title}</h1>
         <img
           className="product-image"
-          src={post.imageUrl}
-          alt={post.title}
+          src={product.imageUrl}
+          alt={product.title}
         ></img>
         <p>
-          Rating: <b>{post.rating}</b>
+          Rating: <b>{product.rating}</b>
         </p>
-        <hr></hr>
-        <p>{post.description}</p>
+        <hr />
+        <p>{product.description}</p>
         <ProductPrice
-          discountedPrice={post.discountedPrice}
-          price={post.price}
+          discountedPrice={product.discountedPrice}
+          price={product.price}
         />
         <button onClick={addToCart}>Add to cart</button>
       </div>

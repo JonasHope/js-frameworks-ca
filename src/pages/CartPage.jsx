@@ -4,6 +4,7 @@ import ProductPrice from "../components/Price";
 
 const Cart = ({ setCartCount }) => {
   const [cart, setCart] = useState([]);
+  const [totalPrice, setTotalPrice] = useState("0.00");
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -12,6 +13,15 @@ const Cart = ({ setCartCount }) => {
       totalPrice: item.discountedPrice * item.quantity || 0,
     }));
     setCart(updatedCart);
+
+    const initialTotalPrice = updatedCart.reduce(
+      (accumulator, item) =>
+        Number.isFinite(item.totalPrice)
+          ? accumulator + item.totalPrice
+          : accumulator,
+      0
+    );
+    setTotalPrice(initialTotalPrice.toFixed(2));
   }, []);
 
   const handleRemoveFromCart = (productId) => {
@@ -19,17 +29,15 @@ const Cart = ({ setCartCount }) => {
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     setCartCount(updatedCart.length);
-  };
 
-  const getTotalPrice = () => {
-    const totalPrice = cart.reduce(
+    const updatedTotalPrice = updatedCart.reduce(
       (accumulator, item) =>
         Number.isFinite(item.totalPrice)
           ? accumulator + item.totalPrice
           : accumulator,
       0
     );
-    return totalPrice.toFixed(2);
+    setTotalPrice(updatedTotalPrice.toFixed(2));
   };
 
   return (
@@ -51,9 +59,7 @@ const Cart = ({ setCartCount }) => {
               </button>
             </div>
           ))}
-          <div className="total-price">
-            Total Price: ${getTotalPrice() || "0.00"}
-          </div>
+          <div className="total-price">Total Price: ${totalPrice}</div>
           <Link to="/checkout">
             <button>Proceed to Checkout</button>
           </Link>
