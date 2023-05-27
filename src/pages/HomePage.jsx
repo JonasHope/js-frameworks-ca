@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import RenderPrice from "../components/RenderPrice";
+import ProductPrice from "../components/RenderPrice";
 import styled from "styled-components";
 
 const url = "https://api.noroff.dev/api/v1/online-shop";
@@ -37,7 +37,7 @@ function Home() {
               ></img>
               <h2>{post.title}</h2>
               <p>{post.description}</p>
-              <RenderPrice
+              <ProductPrice
                 discountedPrice={post.discountedPrice}
                 price={post.price}
               />

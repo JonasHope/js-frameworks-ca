@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import RenderPrice from "../components/RenderPrice";
+import ProductPrice from "../components/RenderPrice";
 
 const Cart = ({ setCartCount }) => {
   const [cart, setCart] = useState([]);
@@ -42,7 +42,7 @@ const Cart = ({ setCartCount }) => {
           {cart.map((product) => (
             <div className="cart-item" key={product.id}>
               <h2>{product.title}</h2>
-              <RenderPrice
+              <ProductPrice
                 discountedPrice={product.discountedPrice}
                 price={product.price}
               />
