@@ -1,9 +1,12 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 function CartIcon({ itemCount }) {
   return (
     <div>
-      <span className="cart-icon-overlay">Cart {itemCount}</span>
+      <span>{itemCount} </span>
+      <FontAwesomeIcon icon={faCartShopping}></FontAwesomeIcon>
     </div>
   );
 }

@@ -1,59 +1,8 @@
-header {
-  background-color: aqua;
-  padding: 10px;
-}
-
-nav ul {
-  display: flex;
-}
-
 a {
   text-decoration: none;
   color: black;
 }
 
-nav li {
-  list-style-type: none;
-  margin: 0px 10px;
-}
-
-/** ---------- **/
-
 body {
   background-color: rgb(228, 255, 255);
-}
-
-.product-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 300px;
-  height: 500px;
-  border-radius: 3px;
-  margin: 10px;
-  padding: 10px;
-  background-color: white;
-}
-
-.product-image {
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-}
-
-.original-price {
-  text-decoration: line-through;
-  padding: 10px;
-}
-
-/** ------------- **/
-
-.product {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-hr {
-  width: 50%;
 }

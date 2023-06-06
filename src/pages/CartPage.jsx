@@ -1,6 +1,65 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ProductPrice from "../components/Price";
+import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRemove } from "@fortawesome/free-solid-svg-icons";
+
+const CartContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const CartItem = styled.div`
+  background-color: aqua;
+  padding: 20px;
+  border-radius: 5px;
+  min-width: 300px;
+  margin: 10px;
+  box-shadow: 0px 15px 10px -15px #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const ProductsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 1100px;
+  margin: auto;
+`;
+
+const Total = styled.div`
+  padding: 10px;
+  margin: 10px;
+  font-weight: bold;
+`;
+
+const RemoveButton = styled.button`
+  border: none;
+  background-color: inherit;
+  font-size: 20px;
+  justify-content: flex-end;
+`;
+
+const ItemContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const CartImage = styled.img`
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+`;
+
+const H2 = styled.h2`
+  margin: 0px;
+  font-size: 1em;
+`;
 
 const Cart = ({ setCartCount }) => {
   const [cart, setCart] = useState([]);
@@ -40,32 +99,43 @@ const Cart = ({ setCartCount }) => {
     setTotalPrice(updatedTotalPrice.toFixed(2));
   };
 
+  const handleClearCart = () => {
+    setCart([]);
+    localStorage.removeItem("cart");
+    setCartCount(0);
+    setTotalPrice("0.00");
+  };
+
   return (
-    <div>
+    <CartContainer>
       <h1>Cart</h1>
       {cart.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
         <>
-          {cart.map((product) => (
-            <div className="cart-item" key={product.id}>
-              <h2>{product.title}</h2>
-              <ProductPrice
-                discountedPrice={product.discountedPrice}
-                price={product.price}
-              />
-              <button onClick={() => handleRemoveFromCart(product.id)}>
-                Remove from cart
-              </button>
-            </div>
-          ))}
-          <div className="total-price">Total Price: ${totalPrice}</div>
-          <Link to="/checkout">
-            <button>Proceed to Checkout</button>
+          <ProductsContainer>
+            {cart.map((product) => (
+              <CartItem key={product.id}>
+                <RemoveButton onClick={() => handleRemoveFromCart(product.id)}>
+                  <FontAwesomeIcon icon={faRemove}></FontAwesomeIcon>
+                </RemoveButton>
+
+                <H2>{product.title}</H2>
+
+                <ProductPrice
+                  discountedPrice={product.discountedPrice}
+                  price={product.price}
+                />
+              </CartItem>
+            ))}
+          </ProductsContainer>
+          <Total>Total Price: ${totalPrice}</Total>
+          <Link to="/checkoutPage">
+            <button onClick={handleClearCart}>Proceed to Checkout</button>
           </Link>
         </>
       )}
-    </div>
+    </CartContainer>
   );
 };
 
