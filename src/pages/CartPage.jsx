@@ -4,6 +4,7 @@ import ProductPrice from "../components/Price";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRemove } from "@fortawesome/free-solid-svg-icons";
+import PrimaryButton from "../styles/buttons";
 
 const CartContainer = styled.div`
   display: flex;
@@ -15,19 +16,22 @@ const CartItem = styled.div`
   background-color: aqua;
   padding: 20px;
   border-radius: 5px;
-  min-width: 300px;
   margin: 10px;
   box-shadow: 0px 15px 10px -15px #ccc;
+`;
+
+const ProductContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
 `;
 
 const ProductsContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  max-width: 1100px;
+  max-width: 800px;
   margin: auto;
+  flex-wrap: wrap;
 `;
 
 const Total = styled.div`
@@ -41,11 +45,18 @@ const RemoveButton = styled.button`
   background-color: inherit;
   font-size: 20px;
   justify-content: flex-end;
+  cursor: pointer;
+  padding: 5px;
+  margin: 5px;
 `;
 
 const H2 = styled.h2`
   margin: 0px;
   font-size: 1em;
+`;
+
+const StylingPrice = styled.div`
+  ;
 `;
 
 const Cart = ({ setCartCount }) => {
@@ -106,19 +117,23 @@ const Cart = ({ setCartCount }) => {
                 <RemoveButton onClick={() => handleRemoveFromCart(product.id)}>
                   <FontAwesomeIcon icon={faRemove}></FontAwesomeIcon>
                 </RemoveButton>
-
-                <H2>{product.title}</H2>
-
-                <ProductPrice
-                  discountedPrice={product.discountedPrice}
-                  price={product.price}
-                />
+                <ProductContent>
+                  <H2>{product.title}</H2>
+                  <StylingPrice>
+                    <ProductPrice
+                      discountedPrice={product.discountedPrice}
+                      price={product.price}
+                    />
+                  </StylingPrice>
+                </ProductContent>
               </CartItem>
             ))}
           </ProductsContainer>
           <Total>Total Price: ${totalPrice}</Total>
           <Link to="/checkoutPage">
-            <button onClick={handleClearCart}>Proceed to Checkout</button>
+            <PrimaryButton onClick={handleClearCart}>
+              Proceed to Checkout
+            </PrimaryButton>
           </Link>
         </>
       )}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
+import PrimaryButton from "../styles/buttons";
 
 const CheckoutContainer = styled.div`
   display: flex;
@@ -36,7 +37,7 @@ function Checkout() {
       <Message>Your purchase was successful!</Message>
       <p>returning to homepage in .. {countdown} seconds</p>
       <Link to="/">
-        <button>Take me back to home page</button>
+        <PrimaryButton>Take me back to home page</PrimaryButton>
       </Link>
     </CheckoutContainer>
   );

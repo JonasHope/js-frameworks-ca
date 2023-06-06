@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductPrice from "../components/Price";
 import styled from "styled-components";
+import PrimaryButton from "../styles/buttons";
 
 const url = "https://api.noroff.dev/api/v1/online-shop";
 
@@ -82,16 +83,16 @@ const Product = ({ setCartCount }) => {
           discountedPrice={product.discountedPrice}
           price={product.price}
         />
-        <button onClick={addToCart}>Add to cart</button>
+        <PrimaryButton onClick={addToCart}>Add to cart</PrimaryButton>
         <ReviewContainer>
           <h2>Reviews</h2>
-          {product.reviews.map((review) => (
-            <ReviewCard>
-              <b> Rating: {review.rating}</b>
-              <p>{review.username}</p>
-              <p>{review.description}</p>
-            </ReviewCard>
-          ))}
+          {product.reviews.length > 0 ? (
+            product.reviews.map((review) => (
+              <ReviewCard key={review.id}></ReviewCard>
+            ))
+          ) : (
+            <p>There are no reviews posted.</p>
+          )}
         </ReviewContainer>
       </Product>
     </section>
