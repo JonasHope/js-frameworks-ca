@@ -43,19 +43,6 @@ const RemoveButton = styled.button`
   justify-content: flex-end;
 `;
 
-const ItemContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const CartImage = styled.img`
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-`;
-
 const H2 = styled.h2`
   margin: 0px;
   font-size: 1em;
