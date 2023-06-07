@@ -3,40 +3,49 @@ import { useParams } from "react-router-dom";
 import ProductPrice from "../components/Price";
 import styled from "styled-components";
 import PrimaryButton from "../styles/buttons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const url = "https://api.noroff.dev/api/v1/online-shop";
+
+const ProductImage = styled.img`
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+`;
+
+const ProductItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Hr = styled.hr`
+  width: 50%;
+`;
+
+const ReviewCard = styled.div`
+  border-radius: 5px;
+  border: 2px solid ${(props) => props.theme.color.primary};
+  padding: 15px;
+  margin: 5px;
+  min-width: 300px;
+`;
+
+const ReviewContainer = styled.div`
+  margin: 10px;
+`;
+
+const ReviewHeader = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const Product = ({ setCartCount }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
-
-  const ProductImage = styled.img`
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-  `;
-
-  const Product = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  `;
-
-  const Hr = styled.hr`
-    width: 50%;
-  `;
-
-  const ReviewCard = styled.div`
-    border-radius: 5px;
-    background-color: aqua;
-    padding: 10px;
-    margin: 5px;
-    min-width: 300px;
-  `;
-
-  const ReviewContainer = styled.div`
-    margin: 10px;
-  `;
 
   useEffect(() => {
     async function getProduct() {
@@ -71,7 +80,7 @@ const Product = ({ setCartCount }) => {
 
   return (
     <section>
-      <Product key={product.id}>
+      <ProductItem key={product.id}>
         <h1>{product.title}</h1>
         <ProductImage src={product.imageUrl} alt={product.title}></ProductImage>
         <p>
@@ -88,13 +97,22 @@ const Product = ({ setCartCount }) => {
           <h2>Reviews</h2>
           {product.reviews.length > 0 ? (
             product.reviews.map((review) => (
-              <ReviewCard key={review.id}></ReviewCard>
+              <ReviewCard key={review.id}>
+                <ReviewHeader>
+                  <b>
+                    {review.rating}{" "}
+                    <FontAwesomeIcon icon={faStar}></FontAwesomeIcon>
+                  </b>
+                  <b>{review.username}</b>
+                </ReviewHeader>
+                <p>{review.description}</p>
+              </ReviewCard>
             ))
           ) : (
             <p>There are no reviews posted.</p>
           )}
         </ReviewContainer>
-      </Product>
+      </ProductItem>
     </section>
   );
 };

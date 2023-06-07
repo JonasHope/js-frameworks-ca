@@ -25,7 +25,7 @@ const SearchResults = styled.ul`
   width: 100%;
   max-height: 50vh;
   padding: 10px;
-  background-color: aqua;
+  background-color: ${(props) => props.theme.color.primary};
   list-style-type: none;
   font-size: 14px;
   z-index: 1;
@@ -42,7 +42,7 @@ const SearchResultItem = styled.li`
   cursor: pointer;
   display: flex;
   align-items: center;
-  background-color: rgb(228, 255, 255);
+  background-color: ${(props) => props.theme.color.secondary});
   border-radius: 5px;
 
   &:last-child {
@@ -92,6 +92,7 @@ const SearchBar = ({ products }) => {
       <SearchInput
         type="text"
         placeholder="Search products"
+        id="searchbar"
         value={searchQuery}
         onChange={handleSearch}
         onFocus={handleInputFocus}
@@ -101,7 +102,7 @@ const SearchBar = ({ products }) => {
       {isInputFocused && searchQuery.length > 0 && (
         <SearchResults>
           {searchResults.map((product) => (
-            <Link to={`/ProductPage/${product.id}`}>
+            <Link to={`/ProductPage/${product.id}`} key={product.id}>
               <SearchResultItem key={product.id}>
                 <ProductImg
                   src={product.imageUrl}

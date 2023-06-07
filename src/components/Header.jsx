@@ -20,7 +20,7 @@ const NavLinks = styled.li`
 `;
 
 const SiteHeader = styled.header`
-  background-color: aqua;
+  background-color: ${(props) => props.theme.color.primary};
   padding: 10px;
 `;
 
@@ -69,7 +69,7 @@ function Header({ cartCount }) {
               <Link to="/">Home</Link>
             </NavLinks>
             <NavLinks>
-              <Link to="/">Contact</Link>
+              <Link to="/ContactPage">Contact</Link>
             </NavLinks>
           </NavDivider>
           <NavLinks>

@@ -65,7 +65,7 @@ function Home() {
       <H1>Products</H1>
       <CardContainer>
         {posts.map((post) => (
-          <Link to={`/ProductPage/${post.id}`}>
+          <Link to={`/ProductPage/${post.id}`} key={post.id}>
             <ProductCard key={post.id}>
               <ProductImage src={post.imageUrl} alt={post.title}></ProductImage>
               <H2>{post.title}</H2>

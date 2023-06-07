@@ -13,8 +13,7 @@ const CartContainer = styled.div`
 `;
 
 const CartItem = styled.div`
-  background-color: aqua;
-  padding: 20px;
+  background-color: ${(props) => props.theme.color.primary};
   border-radius: 5px;
   margin: 10px;
   box-shadow: 0px 15px 10px -15px #ccc;
@@ -25,6 +24,7 @@ const ProductContent = styled.div`
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
+  padding: 10px;
 `;
 
 const ProductsContainer = styled.div`
@@ -44,10 +44,12 @@ const RemoveButton = styled.button`
   border: none;
   background-color: inherit;
   font-size: 20px;
-  justify-content: flex-end;
   cursor: pointer;
   padding: 5px;
   margin: 5px;
+  display: flex;
+  justify-content: flex-end;
+  width: 93%;
 `;
 
 const H2 = styled.h2`
@@ -57,6 +59,10 @@ const H2 = styled.h2`
 
 const StylingPrice = styled.div`
   ;
+`;
+
+const Hr = styled.hr`
+  width: 50%;
 `;
 
 const Cart = ({ setCartCount }) => {
@@ -129,6 +135,7 @@ const Cart = ({ setCartCount }) => {
               </CartItem>
             ))}
           </ProductsContainer>
+          <Hr></Hr>
           <Total>Total Price: ${totalPrice}</Total>
           <Link to="/checkoutPage">
             <PrimaryButton onClick={handleClearCart}>

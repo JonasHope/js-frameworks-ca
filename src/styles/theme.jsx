@@ -2,8 +2,8 @@ import { ThemeProvider } from "styled-components";
 
 const theme = {
   color: {
-    primary: "purple",
-    secondary: "red",
+    primary: "aqua",
+    secondary: "rgb(228, 255, 255);",
   },
 };
 
