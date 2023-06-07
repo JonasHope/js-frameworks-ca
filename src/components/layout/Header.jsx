@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import CartIcon from "./CartIcon";
+import CartIcon from "../CartIcon";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import SearchBar from "./SearchBar";
+import SearchBar from "../SearchBar";
 
 const NavLinks = styled.li`
   font-size: large;

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { styled } from 'styled-components';
-import Header from './components/Header';
+import Header from './components/layout/Header';
 import Cart from './pages/CartPage';
 import Home from './pages/HomePage';
 import Product from './pages/ProductPage';
 import Checkout from './pages/CheckoutPage';
 import Contact from './pages/ContactPage';
-import Footer from './components/Footer';
+import Footer from './components/layout/Footer';
 
 const StyledBrowsRouter = styled.div`
     height: 100vh;

@@ -13,7 +13,7 @@ const CartContainer = styled.div`
 `;
 
 const CartItem = styled.div`
-  background-color: ${(props) => props.theme.color.primary};
+  border: 2px solid ${(props) => props.theme.color.primary};
   border-radius: 5px;
   margin: 10px;
   box-shadow: 0px 15px 10px -15px #ccc;
